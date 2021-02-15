@@ -14,7 +14,7 @@ export function connect(url?:string, config?:nats.ClientOpts):Promise<void> {
   });
 }
 
-export function publish(subject:string, data:string) {
+export function publish(subject:string, data:any) {
   client.publish(subject, JSON.stringify(data));
 }
 

@@ -31,7 +31,6 @@ export const getList = async (dispatch: any) => {
   dispatch(loadingAction());
   try {
     const workers = await workerSvc.list();
-    console.log(workers)
     dispatch(workersLoadedAction(workers));
   } catch (err) {
     dispatch(errorAction('gagal memuat daftar pekerja'));
