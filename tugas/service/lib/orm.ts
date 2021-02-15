@@ -1,6 +1,6 @@
-import { createConnection } from 'typeorm';
+import { createConnection, EntitySchema } from 'typeorm';
 
-export function connect(entities:any, config:any) {
+export function connect(entities:EntitySchema[], config:any) {
   return createConnection({
     ...config,
     synchronize: true,
