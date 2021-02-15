@@ -2,7 +2,7 @@ import * as nats from 'nats';
 
 let client:any;
 
-export function connect(url?:string, config?:any):Promise<void> {
+export function connect(url?:string, config?:nats.ClientOpts):Promise<void> {
   return new Promise((resolve, reject) => {
     client = nats.connect(url, config);
     client.on('connect', () => {
@@ -14,15 +14,15 @@ export function connect(url?:string, config?:any):Promise<void> {
   });
 }
 
-export function publish(subject:string, data:string) {
+export function publish(subject:string, data:any) {
   client.publish(subject, JSON.stringify(data));
 }
 
-export function subscribe(subject:string, callback:any) {
+export function subscribe(subject:string, callback:Function) {
   return client.subscribe(subject, callback);
 }
 
-export function unsubscribe(sid:any) {
+export function unsubscribe(sid:number) {
   return client.unsubscribe(sid);
 }
 
