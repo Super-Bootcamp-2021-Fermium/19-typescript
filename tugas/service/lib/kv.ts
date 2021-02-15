@@ -15,7 +15,7 @@ export function connect(options?:any):Promise<void> {
   });
 }
 
-export function save(db:string, data:string) {
+export function save(db:string, data:any) {
   const setAsync = promisify(client.set).bind(client);
   return setAsync(db, data);
 }

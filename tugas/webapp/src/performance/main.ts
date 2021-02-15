@@ -19,10 +19,10 @@ store$.subscribe(() => {
 const state = store$.getState();
 render(state);
 
-store$.dispatch(summary);
+store$.dispatch<any>(summary);
 
 refresh.onclick = () => {
-  store$.dispatch(summary);
+  store$.dispatch<any>(summary);
 };
 
 function render(state) {
@@ -33,9 +33,9 @@ function render(state) {
     errorTxt.textContent = '';
   }
   if (state.loading) {
-    loadingTxt.style = '';
+    loadingTxt.style.display = 'block';
   } else {
-    loadingTxt.style = 'display:none;';
+    loadingTxt.style.display = 'none';
   }
 
   // render list of worker
