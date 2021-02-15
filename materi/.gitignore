@@ -4,4 +4,5 @@ node_modules
 file-storage
 docs
 .todorc
+.tmrc
 .env
