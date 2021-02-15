@@ -49,7 +49,7 @@ async function onStop() {
   kv.close();
 }
 
-async function main(command) {
+async function main(command :string) {
   switch (command) {
     case 'performance':
       await init();
