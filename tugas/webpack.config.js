@@ -1,3 +1,4 @@
+const DotenvWebpackPlugin = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = {
