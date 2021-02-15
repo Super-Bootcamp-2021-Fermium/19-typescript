@@ -25,7 +25,7 @@ refresh.onclick = () => {
   store$.dispatch<any>(summary);
 };
 
-function render(state) {
+function render(state: any) {
   // render error
   if (state.error) {
     errorTxt.textContent = state.error.toString();
@@ -39,8 +39,8 @@ function render(state) {
   }
 
   // render list of worker
-  workers.innerText = state.summary.total_worker.toString();
-  tasks.innerText = state.summary.total_task.toString();
-  done.innerText = state.summary.task_done.toString();
-  canceled.innerText = state.summary.task_cancelled.toString();
+  workers.innerText = state.summary?.total_worker?.toString() ?? '0';
+  tasks.innerText = state.summary?.total_task?.toString() ?? '0';
+  done.innerText = state.summary?.task_done?.toString() ?? '0';
+  canceled.innerText = state.summary?.task_cancelled?.toString() ?? '0';
 }

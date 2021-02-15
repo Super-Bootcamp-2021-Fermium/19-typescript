@@ -7,13 +7,13 @@ import {
   decreaseTotalWorker,
 } from './performance';
 
-let increaseTotalTaskSub;
-let increaseDoneTaskSub;
-let increaseCancelledTaskSub;
-let increaseTotalWorkerSub;
-let decreaseTotalWorkerSub;
+let increaseTotalTaskSub: number;
+let increaseDoneTaskSub: number;
+let increaseCancelledTaskSub: number;
+let increaseTotalWorkerSub: number;
+let decreaseTotalWorkerSub: number;
 
-export function run() {
+export function run(): void {
   increaseTotalTaskSub = bus.subscribe('task.added', increaseTotalTask);
   increaseDoneTaskSub = bus.subscribe('task.done', increaseDoneTask);
   increaseCancelledTaskSub = bus.subscribe(
@@ -27,7 +27,7 @@ export function run() {
   decreaseTotalWorkerSub = bus.subscribe('worker.removed', decreaseTotalWorker);
 }
 
-export function stop() {
+export function stop(): void {
   if (increaseTotalTaskSub) {
     bus.unsubscribe(increaseTotalTaskSub);
   }

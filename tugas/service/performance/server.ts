@@ -1,12 +1,12 @@
-import { createServer } from 'http';
+import { createServer, Server, IncomingMessage, ServerResponse } from 'http';
 import * as url from 'url';
 import { stdout } from 'process';
 import { summarySvc } from './performance.service';
 import * as agg from './performance.agg';
 
-let server;
+let server: Server;
 
-export function run(callback) {
+export function run(callback: Function): void {
   server = createServer((req, res) => {
     // cors
     const aborted = cors(req, res);
@@ -14,7 +14,7 @@ export function run(callback) {
       return;
     }
 
-    function respond(statusCode, message?) {
+    function respond(statusCode: number, message?: string) {
       res.statusCode = statusCode || 200;
       res.write(message || '');
       res.end();
@@ -56,7 +56,7 @@ export function run(callback) {
   });
 }
 
-export function cors(req, res) {
+export function cors(req: IncomingMessage, res: ServerResponse) {
   // handle preflight request
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Request-Method', '*');
