@@ -1,4 +1,5 @@
-// setup state
+import { SERVICE_BASEURL } from './config';
+
 export const initialState = {
   loading: false,
   error: null,

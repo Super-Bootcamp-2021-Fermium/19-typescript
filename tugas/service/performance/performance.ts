@@ -5,7 +5,7 @@ const TASK_DONE_KEY = 'task.done';
 const TASK_CANCELLED_KEY = 'task.cancelled';
 const WORKER_TOTAL_KEY = 'worker.total';
 
-export async function summary(): Promise<any> {
+export async function summary(){
   const data = {
     total_task: parseInt((await read(TASK_TOTAL_KEY)) || '0', 10),
     task_done: parseInt((await read(TASK_DONE_KEY)) || '0', 10),

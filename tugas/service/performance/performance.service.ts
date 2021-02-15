@@ -1,6 +1,7 @@
 import { summary } from './performance';
+import { IncomingMessage, ServerResponse } from 'http';
 
-export async function summarySvc(req, res) {
+export async function summarySvc(req: IncomingMessage, res: ServerResponse) {
   try {
     const sums = await summary();
     res.setHeader('content-type', 'application/json');
