@@ -1,11 +1,12 @@
 import * as rc from 'rc';
-import  { ConnectionOptions } from 'typeorm';
+import { ConnectionOptions } from 'typeorm';
 
 export interface ServiceConfig {
   database: ConnectionOptions;
   server: {
-    port: number
+    port: number;
   };
+  minio: any;
 }
 
 const defaultConfig: ServiceConfig = {
@@ -20,6 +21,13 @@ const defaultConfig: ServiceConfig = {
   server: {
     port: 80,
   },
+  minio: {
+    endPoint: '127.0.0.1',
+    port: 9000,
+    useSSL: false,
+    accessKey: 'minioadmin',
+    secretKey: 'minioadmin',
+  },
 };
 
-export const config: ServiceConfig = rc('todo', defaultConfig);
+export const config: ServiceConfig = rc('tm', defaultConfig);

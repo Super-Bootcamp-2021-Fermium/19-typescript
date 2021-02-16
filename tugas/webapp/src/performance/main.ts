@@ -1,7 +1,7 @@
-const { summary } = require('./async-action');
-const { store$ } = require('./store');
+import { summary } from './async-action';
+import { store$ } from './store';
 
-require('./main.css');
+import './main.css';
 
 const workers = document.getElementById('workers');
 const tasks = document.getElementById('tasks');
@@ -19,13 +19,13 @@ store$.subscribe(() => {
 const state = store$.getState();
 render(state);
 
-store$.dispatch(summary);
+store$.dispatch<any>(summary);
 
 refresh.onclick = () => {
-  store$.dispatch(summary);
+  store$.dispatch<any>(summary);
 };
 
-function render(state) {
+function render(state: any) {
   // render error
   if (state.error) {
     errorTxt.textContent = state.error.toString();
@@ -33,14 +33,14 @@ function render(state) {
     errorTxt.textContent = '';
   }
   if (state.loading) {
-    loadingTxt.style = '';
+    loadingTxt.style.display = 'block';
   } else {
-    loadingTxt.style = 'display:none;';
+    loadingTxt.style.display = 'none';
   }
 
   // render list of worker
-  workers.innerText = state.summary.total_worker.toString();
-  tasks.innerText = state.summary.total_task.toString();
-  done.innerText = state.summary.task_done.toString();
-  canceled.innerText = state.summary.task_cancelled.toString();
+  workers.innerText = state.summary?.total_worker?.toString() ?? '0';
+  tasks.innerText = state.summary?.total_task?.toString() ?? '0';
+  done.innerText = state.summary?.task_done?.toString() ?? '0';
+  canceled.innerText = state.summary?.task_cancelled?.toString() ?? '0';
 }
