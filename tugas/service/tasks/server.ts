@@ -1,17 +1,17 @@
-const { createServer } = require('http');
-const url = require('url');
-const { stdout } = require('process');
-const {
+import { createServer, IncomingMessage, ServerResponse, Server } from 'http'
+import * as url from 'url';
+import { stdout } from 'process';
+import {
   addSvc,
   cancelSvc,
   doneSvc,
   listSvc,
   getAttachmentSvc,
-} = require('./task.service');
+} from './task.service';
 
-let server;
+export let server: Server;
 
-function run(callback) {
+export function run(callback: Function): void {
   server = createServer((req, res) => {
     // cors
     const aborted = cors(req, res);
@@ -19,7 +19,7 @@ function run(callback) {
       return;
     }
 
-    function respond(statusCode, message) {
+    function respond(statusCode: number, message?: string) {
       res.statusCode = statusCode || 200;
       res.write(message || '');
       res.end();
@@ -81,7 +81,7 @@ function run(callback) {
   });
 }
 
-function cors(req, res) {
+export function cors(req: IncomingMessage, res: ServerResponse) {
   // handle preflight request
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Request-Method', '*');
@@ -98,14 +98,8 @@ function cors(req, res) {
   }
 }
 
-function stop() {
+export function stop() {
   if (server) {
     server.close();
   }
 }
-
-module.exports = {
-  run,
-  stop,
-  cors,
-};
