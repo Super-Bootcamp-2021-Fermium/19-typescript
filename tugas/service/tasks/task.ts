@@ -1,6 +1,7 @@
 import { getConnection } from 'typeorm'
 import * as workerClient from './worker.client';
 import * as bus from '../lib/bus';
+import { Task } from './task.model';
 
 export const ERROR_TASK_DATA_INVALID = 'data pekerjaan baru tidak lengkap';
 export const ERROR_TASK_NOT_FOUND = 'pekerjaan tidak ditemukan';
@@ -12,7 +13,7 @@ export async function add(data: any): Promise<any> {
   }
   await workerClient.info(data.assigneeId);
   const taskRepo = getConnection().getRepository('Task');
-  const newTask = await taskRepo.save({
+  const newTask:any = await taskRepo.save({
     job: data.job,
     assignee: { id: data.assigneeId },
     attachment: data.attachment,
@@ -25,24 +26,24 @@ export async function add(data: any): Promise<any> {
   return task;
 }
 
-export async function done(id: number): Promise<any>{
+export async function done(id): Promise<any>{
   const taskRepo = getConnection().getRepository('Task');
-  const task = await taskRepo.findOne(id, { relations: ['assignee'] });
+  const task:any = await taskRepo.findOne(id, { relations: ['assignee'] });
   if (!task || task?.cancelled) {
     throw ERROR_TASK_NOT_FOUND;
   }
   if (task?.done) {
     throw ERROR_TASK_ALREADY_DONE;
   }
-  task?.done = true;
+  task.done = true;
   await taskRepo.save(task);
   bus.publish('task.done', task);
   return task;
 }
 
-export async function cancel(id: number): Promise<any> {
+export async function cancel(id): Promise<any> {
   const taskRepo = getConnection().getRepository('Task');
-  const task = await taskRepo.findOne(id, { relations: ['assignee'] });
+  const task:any = await taskRepo.findOne(id, { relations: ['assignee'] });
   if (!task || task.cancelled) {
     throw ERROR_TASK_NOT_FOUND;
   }

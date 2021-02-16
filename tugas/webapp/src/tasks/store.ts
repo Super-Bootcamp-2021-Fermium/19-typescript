@@ -15,6 +15,7 @@ import {
   clearError,
 } from './reducer';
 import { Task } from './reducer' 
+import thunkMiddleware from 'redux-thunk';
 
 enum ActionType {
   ERROR = 'error',
@@ -27,8 +28,6 @@ enum ActionType {
   CLEARERROR = 'clearError'
 }
 
-const thunkMiddleware = require('redux-thunk');
-
 export const errorAction = createAction<any>(ActionType.ERROR);
 export const loadingAction = createAction(ActionType.LOADING);
 export const addedAction = createAction<Task>(ActionType.ADD);
@@ -38,7 +37,7 @@ export const tasksLoadedAction = createAction<any>(ActionType.TASKLOADED);
 export const workersLoadedAction = createAction<any>(ActionType.WORKERLOADED);
 export const clearErrorAction = createAction(ActionType.CLEARERROR);
 
-export const reducer = createReducer(initialState, {
+const reducer = createReducer(initialState, {
   [ActionType.ERROR]: error,
   [ActionType.CLEARERROR]: clearError,
   [ActionType.LOADING]: loading,
@@ -51,5 +50,5 @@ export const reducer = createReducer(initialState, {
 
 export const store$ = configureStore({
   reducer,
-  middleware: [thunkMiddleware.default],
+  middleware: [thunkMiddleware],
 });

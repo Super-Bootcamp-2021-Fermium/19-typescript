@@ -13,10 +13,10 @@ import {
 
 import './main.css';
 
-const form = document.getElementById('form');
-const job = document.getElementById('job');
-const assignee = document.getElementById('assignee');
-const attachment = document.getElementById('attachment');
+const form = <HTMLFormElement>document.getElementById('form');
+const job = <HTMLInputElement>document.getElementById('job');
+const assignee = <HTMLSelectElement>document.getElementById('assignee');
+const attachment = <HTMLInputElement>document.getElementById('attachment');
 const list = document.getElementById('list');
 const errorTxt = document.getElementById('error-text');
 const loadingTxt = document.getElementById('loading-text');
@@ -26,7 +26,7 @@ if (form) {
     event.preventDefault();
     store$.dispatch(clearErrorAction());
     if (
-      !job.nodeValue ||
+      !job.value ||
       !assignee.options[assignee.selectedIndex] ||
       !attachment.files[0]
     ) {
@@ -36,12 +36,13 @@ if (form) {
     // register user
     store$.dispatch<any>(
       add({
-        job: job.nodeValue,
-        assignee_id: assignee.options[assignee.selectedIndex].nodeValue,
+        job: job.value,
+        assignee_id: assignee.options[assignee.selectedIndex].value,
         attachment: attachment.files[0],
       })
     );
     // reset form
+    console.log(assignee.options[assignee.selectedIndex].value)
     form.reset();
   };
 } else {
@@ -70,24 +71,24 @@ function render(state) {
     errorTxt.textContent = '';
   }
   if (state.loading) {
-    loadingTxt.style = '';
+    loadingTxt.style.display = 'block';
   } else {
-    loadingTxt.style = 'display:none;';
+    loadingTxt.style.display = 'none';
   }
 
   // add asignee options
   assignee.innerHTML = '';
-  for (let i = 0; i < state.workers.length; i++) {
+  for (let i = 0; i < state.workers?.length; i++) {
     const worker = state.workers[i];
     const option = document.createElement('option');
     option.text = worker.name;
-    option.nodeValue = worker.id;
+    option.value = worker.id;
     assignee?.add(option);
   }
 
   // render list of worker
   list.innerHTML = '';
-  for (let i = 0; i < state.tasks.length; i++) {
+  for (let i = 0; i < state.tasks?.length; i++) {
     const task = state.tasks[i];
     const li = document.createElement('div');
     let innerHtml = `

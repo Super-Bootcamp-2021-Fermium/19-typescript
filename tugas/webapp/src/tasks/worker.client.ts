@@ -1,4 +1,4 @@
-import { client } from '../lib/http-client';
+import { httpClient as client } from '../lib/http-client';
 import { WORKER_SERVICE_BASEURL } from './config'
 
 export function list() {

@@ -1,4 +1,4 @@
-import Busboy from 'busboy';
+import * as Busboy from 'busboy';
 import * as url from 'url';
 import * as mime from 'mime-types';
 import { IncomingMessage, ServerResponse } from 'http'

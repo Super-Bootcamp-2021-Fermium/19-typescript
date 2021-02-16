@@ -1,4 +1,4 @@
-import { createServer, IncomingMessage, ServerResponse } from 'http'
+import { createServer, IncomingMessage, ServerResponse, Server } from 'http'
 import * as url from 'url';
 import { stdout } from 'process';
 import {
@@ -9,9 +9,9 @@ import {
   getAttachmentSvc,
 } from './task.service';
 
-export let server;
+export let server: Server;
 
-export function run(callback: any) {
+export function run(callback: Function): void {
   server = createServer((req, res) => {
     // cors
     const aborted = cors(req, res);
@@ -19,7 +19,7 @@ export function run(callback: any) {
       return;
     }
 
-    function respond(statusCode: any, message: any) {
+    function respond(statusCode: number, message?: string) {
       res.statusCode = statusCode || 200;
       res.write(message || '');
       res.end();
