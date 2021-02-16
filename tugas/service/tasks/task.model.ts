@@ -1,7 +1,7 @@
-const { EntitySchema } = require('typeorm');
+import { EntitySchema } from 'typeorm';
 
-class Task {
-  constructor(id, job, assignee, done, cancelled, attachment, addedAt) {
+export class Task {
+  constructor(id: any, job: any, assignee: any, done: any, cancelled: any, attachment: any, addedAt: any) {
     this.id = id;
     this.job = job;
     this.done = done;
@@ -12,7 +12,7 @@ class Task {
   }
 }
 
-const TaskSchema = new EntitySchema({
+export const TaskSchema = new EntitySchema({
   name: 'Task',
   tableName: 'tasks',
   target: Task,
@@ -53,8 +53,3 @@ const TaskSchema = new EntitySchema({
     },
   },
 });
-
-module.exports = {
-  Task,
-  TaskSchema,
-};
